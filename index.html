@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real Madrid Rebuild Career Mode</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Real Madrid: Rebuild Career Mode</h1>
+      <p>
+        Sign players, manage fitness, pick tactics, and play matches to bring Madrid
+        back to dominance.
+      </p>
+    </header>
+
+    <main>
+      <section class="panel overview">
+        <h2>Club Overview</h2>
+        <div class="stats-grid">
+          <div><span>Budget</span><strong id="budget"></strong></div>
+          <div><span>Team Chemistry</span><strong id="chemistry"></strong></div>
+          <div><span>Squad Rating</span><strong id="squad-rating"></strong></div>
+          <div><span>League Points</span><strong id="points"></strong></div>
+          <div><span>Week</span><strong id="week"></strong></div>
+        </div>
+      </section>
+
+      <section class="panel" id="squad-panel">
+        <h2>Squad Management</h2>
+        <p class="hint">Train players to improve stats, but watch stamina.</p>
+        <div id="squad-list" class="card-list"></div>
+      </section>
+
+      <section class="panel" id="market-panel">
+        <h2>Transfer Market</h2>
+        <div id="market-list" class="card-list"></div>
+      </section>
+
+      <section class="panel" id="match-panel">
+        <h2>Play Match</h2>
+        <label for="tactic">Tactic</label>
+        <select id="tactic">
+          <option value="balanced">Balanced</option>
+          <option value="high-press">High Press</option>
+          <option value="counter">Counter Attack</option>
+          <option value="possession">Possession</option>
+        </select>
+        <button id="play-match">Play Next Match</button>
+        <div id="match-log" class="log"></div>
+      </section>
+
+      <section class="panel" id="objectives-panel">
+        <h2>Season Objectives</h2>
+        <ul>
+          <li id="obj-rating">Reach squad rating of 86+</li>
+          <li id="obj-points">Reach 20+ league points in 10 weeks</li>
+          <li id="obj-budget">Finish with €120m+ budget</li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
