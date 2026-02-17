@@ -3,14 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EA FC Style Career - Real Madrid Rebuild</title>
+    <title>ADWBALL 2026 Career Mode</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="hero">
-      <div>
-        <h1>Real Madrid Career Hub</h1>
-        <p>Play full seasons with a dynamic match engine, score sheets, and player leaderboards.</p>
+      <div class="brand">
+        <div class="logo-ball">⚽</div>
+        <div>
+          <h1 class="logo-text">ADWBALL <span>2026</span></h1>
+          <p>Real Madrid Career Hub — deeper match simulation, real squad management, full LaLiga world.</p>
+        </div>
       </div>
       <div class="season-chip" id="season-chip">Season 1</div>
     </header>
@@ -34,9 +37,14 @@
       </section>
 
       <section class="panel actions-panel">
-        <h2>Squad Actions</h2>
-        <p class="hint">Upgrade players (+1, max 99), recover fitness, and prepare for the next fixture.</p>
+        <h2>Starting XI Development</h2>
+        <p class="hint">Stamina is restored automatically between matches. Growth gets harder near 99.</p>
         <div id="squad-list" class="scroll-list"></div>
+      </section>
+
+      <section class="panel bench-panel">
+        <h2>Bench (Real Madrid)</h2>
+        <div id="bench-list" class="scroll-list"></div>
       </section>
 
       <section class="panel market-panel">
@@ -68,7 +76,7 @@
       </section>
 
       <section class="panel leaders-panel">
-        <h2>Season Leaders</h2>
+        <h2>Leaders</h2>
         <div id="leaders" class="leaders-grid"></div>
       </section>
 
