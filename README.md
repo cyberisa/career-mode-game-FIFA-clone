@@ -1,16 +1,13 @@
-# Real Madrid Rebuild Career Mode (Prototype)
+# Real Madrid Ultimate Rebuild (Browser Prototype)
 
-A lightweight browser game inspired by FIFA-style player career management.
+A FIFA-style management prototype where you control Real Madrid's **starting XI**, sign stars from a large market, and simulate matches.
 
-## What you can do
-- Manage a Real Madrid-inspired squad.
-- Train, rest, and sell players.
-- Buy targets from a transfer market.
-- Pick match tactics and simulate 10 league weeks.
-- Complete rebuild objectives for rating, points, and budget.
+## Features
+- Visual 4-3-3 pitch showing all 11 starters.
+- Easy player upgrades (+2 overall) with a hard cap at **99**.
+- Large transfer market with many high-profile players.
+- Tactics + weekly match simulation loop.
+- Budget, chemistry, points, and wins tracking.
 
-## Run locally
-Open `index.html` in your browser.
-
-## Notes
-This is a prototype focused on management gameplay loops rather than full 3D matches.
+## Run
+Open `index.html` directly in your browser, or use a local server.

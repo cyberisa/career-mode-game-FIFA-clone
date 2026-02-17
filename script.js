@@ -1,213 +1,226 @@
+const formationSlots = [
+  { slot: "GK", x: 50, y: 92 },
+  { slot: "LB", x: 18, y: 72 },
+  { slot: "CB", x: 39, y: 74 },
+  { slot: "CB", x: 61, y: 74 },
+  { slot: "RB", x: 82, y: 72 },
+  { slot: "CM", x: 24, y: 52 },
+  { slot: "CM", x: 50, y: 49 },
+  { slot: "CM", x: 76, y: 52 },
+  { slot: "LW", x: 20, y: 24 },
+  { slot: "ST", x: 50, y: 20 },
+  { slot: "RW", x: 80, y: 24 },
+];
+
 const state = {
-  budget: 95000000,
-  chemistry: 74,
+  budget: 180000000,
+  chemistry: 84,
   points: 0,
+  wins: 0,
   week: 1,
   squad: [
-    { name: "Bellingham", position: "CM", rating: 88, stamina: 92, morale: 84, value: 130000000 },
-    { name: "Vinicius Jr", position: "LW", rating: 89, stamina: 90, morale: 82, value: 150000000 },
-    { name: "Rodrygo", position: "RW", rating: 86, stamina: 88, morale: 80, value: 95000000 },
-    { name: "Camavinga", position: "CM", rating: 84, stamina: 91, morale: 78, value: 85000000 },
-    { name: "Militao", position: "CB", rating: 85, stamina: 86, morale: 79, value: 70000000 },
+    { name: "Courtois", position: "GK", rating: 90, stamina: 90 },
+    { name: "Mendy", position: "LB", rating: 83, stamina: 88 },
+    { name: "Rudiger", position: "CB", rating: 86, stamina: 87 },
+    { name: "Militao", position: "CB", rating: 85, stamina: 85 },
+    { name: "Carvajal", position: "RB", rating: 84, stamina: 83 },
+    { name: "Bellingham", position: "CM", rating: 88, stamina: 91 },
+    { name: "Valverde", position: "CM", rating: 87, stamina: 90 },
+    { name: "Camavinga", position: "CM", rating: 84, stamina: 89 },
+    { name: "Vinicius Jr", position: "LW", rating: 89, stamina: 89 },
+    { name: "Mbappe", position: "ST", rating: 91, stamina: 88 },
+    { name: "Rodrygo", position: "RW", rating: 86, stamina: 87 },
   ],
   market: [
-    { name: "Wirtz", position: "CAM", rating: 88, stamina: 85, morale: 80, price: 125000000 },
-    { name: "Davies", position: "LB", rating: 86, stamina: 92, morale: 79, price: 78000000 },
-    { name: "Haaland", position: "ST", rating: 91, stamina: 84, morale: 81, price: 165000000 },
-    { name: "Saliba", position: "CB", rating: 87, stamina: 88, morale: 82, price: 98000000 },
-  ],
+    ["Haaland", "ST", 91, 190000000], ["Wirtz", "CAM", 88, 125000000], ["Musiala", "CAM", 88, 131000000],
+    ["Saka", "RW", 89, 142000000], ["Saliba", "CB", 87, 102000000], ["Bastoni", "CB", 87, 98000000],
+    ["Theo Hernandez", "LB", 87, 89000000], ["Hakimi", "RB", 86, 83000000], ["Pedri", "CM", 88, 145000000],
+    ["Rice", "CDM", 88, 138000000], ["Alvarez", "ST", 86, 97000000], ["Leao", "LW", 87, 116000000],
+    ["Kvaratskhelia", "LW", 86, 99000000], ["Osimhen", "ST", 89, 149000000], ["Lautaro", "ST", 89, 135000000],
+    ["Foden", "RW", 89, 148000000], ["Grimaldo", "LB", 85, 62000000], ["Frimpong", "RB", 84, 72000000],
+    ["Tonali", "CM", 85, 88000000], ["Guimaraes", "CM", 86, 94000000], ["Gavi", "CM", 84, 78000000],
+    ["Araujo", "CB", 88, 136000000], ["Diogo Costa", "GK", 85, 71000000], ["Maignan", "GK", 88, 93000000],
+    ["Dimarco", "LB", 84, 55000000], ["Reece James", "RB", 84, 69000000], ["Nico Williams", "LW", 84, 76000000],
+    ["Palmer", "RW", 85, 85000000], ["Xavi Simons", "CAM", 85, 79000000], ["Zubimendi", "CDM", 84, 67000000],
+  ].map((p) => ({ name: p[0], position: p[1], rating: p[2], stamina: 84, price: p[3] })),
 };
 
-const clubs = ["Barcelona", "Atletico", "Sevilla", "Valencia", "Real Sociedad", "Villarreal"];
-
+const clubs = ["Barcelona", "Atletico", "Sevilla", "Valencia", "Real Sociedad", "Villarreal", "Athletic", "Betis"];
 const currency = new Intl.NumberFormat("en", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 
-const budgetEl = document.getElementById("budget");
-const chemistryEl = document.getElementById("chemistry");
-const ratingEl = document.getElementById("squad-rating");
-const pointsEl = document.getElementById("points");
-const weekEl = document.getElementById("week");
-const squadListEl = document.getElementById("squad-list");
-const marketListEl = document.getElementById("market-list");
-const tacticEl = document.getElementById("tactic");
-const playMatchBtn = document.getElementById("play-match");
-const matchLogEl = document.getElementById("match-log");
+const els = {
+  budget: document.getElementById("budget"), chemistry: document.getElementById("chemistry"), rating: document.getElementById("squad-rating"),
+  points: document.getElementById("points"), wins: document.getElementById("wins"), week: document.getElementById("week"),
+  pitch: document.getElementById("pitch"), squadList: document.getElementById("squad-list"), marketList: document.getElementById("market-list"),
+  tactic: document.getElementById("tactic"), playBtn: document.getElementById("play-match"), log: document.getElementById("match-log"),
+  search: document.getElementById("market-search"),
+};
 
-function averageRating() {
-  const total = state.squad.reduce((sum, p) => sum + p.rating, 0);
-  return Math.round(total / state.squad.length);
-}
-
-function updateObjectiveStatus() {
-  document.getElementById("obj-rating").className = averageRating() >= 86 ? "good" : "";
-  document.getElementById("obj-points").className = state.points >= 20 && state.week <= 11 ? "good" : "";
-  document.getElementById("obj-budget").className = state.budget >= 120000000 && state.week > 10 ? "good" : "";
+function avgRating() {
+  return Math.round(state.squad.reduce((sum, p) => sum + p.rating, 0) / state.squad.length);
 }
 
 function renderOverview() {
-  budgetEl.textContent = currency.format(state.budget);
-  chemistryEl.textContent = `${state.chemistry}`;
-  ratingEl.textContent = `${averageRating()}`;
-  pointsEl.textContent = `${state.points}`;
-  weekEl.textContent = `${state.week}/10`;
-  updateObjectiveStatus();
+  els.budget.textContent = currency.format(state.budget);
+  els.chemistry.textContent = `${state.chemistry}`;
+  els.rating.textContent = `${avgRating()}`;
+  els.points.textContent = `${state.points}`;
+  els.wins.textContent = `${state.wins}`;
+  els.week.textContent = `${state.week}/20`;
 }
 
-function trainPlayer(index) {
+function renderPitch() {
+  els.pitch.innerHTML = "";
+  formationSlots.forEach((slot, idx) => {
+    const player = state.squad[idx];
+    const node = document.createElement("div");
+    node.className = "pitch-player";
+    node.style.left = `${slot.x}%`;
+    node.style.top = `${slot.y}%`;
+    node.innerHTML = `
+      <div class="badge">${player.rating}</div>
+      <div class="name">${player.name}</div>
+      <div class="meta">${player.position} • STM ${player.stamina}</div>
+    `;
+    els.pitch.appendChild(node);
+  });
+}
+
+function upgradePlayer(index) {
   const player = state.squad[index];
-  if (player.stamina < 60) {
-    setLog(`${player.name} is too tired to train. Rest or rotate squad.`);
-    return;
-  }
-  player.rating += 1;
-  player.stamina -= 9;
-  player.morale += 2;
+  const cost = 2500000;
+  if (state.budget < cost) return setLog("Not enough budget for this upgrade.", false);
+  if (player.rating >= 99) return setLog(`${player.name} is already maxed at 99.`, false);
+
+  state.budget -= cost;
+  player.rating = Math.min(99, player.rating + 2);
+  player.stamina = Math.max(50, player.stamina - 4);
   state.chemistry = Math.min(99, state.chemistry + 1);
-  setLog(`${player.name} completed an intense session: +1 rating, stamina now ${player.stamina}.`);
+  setLog(`${player.name} upgraded quickly to ${player.rating} OVR (max 99).`);
   render();
 }
 
-function restPlayer(index) {
+function recoverPlayer(index) {
   const player = state.squad[index];
   player.stamina = Math.min(100, player.stamina + 12);
-  player.morale = Math.min(99, player.morale + 1);
-  setLog(`${player.name} rested and recovered fitness.`);
-  render();
-}
-
-function sellPlayer(index) {
-  if (state.squad.length <= 3) {
-    setLog("You need at least 3 players in the squad.");
-    return;
-  }
-  const [player] = state.squad.splice(index, 1);
-  const fee = Math.round(player.value * 0.55);
-  state.budget += fee;
-  state.chemistry = Math.max(50, state.chemistry - 3);
-  setLog(`${player.name} sold for ${currency.format(fee)}.`);
+  setLog(`${player.name} recovered and is ready for the next match.`);
   render();
 }
 
 function buyPlayer(index) {
-  const target = state.market[index];
-  if (state.budget < target.price) {
-    setLog(`Not enough budget to sign ${target.name}.`);
-    return;
-  }
+  const target = filteredMarket()[index];
+  if (!target) return;
+  if (state.budget < target.price) return setLog(`You cannot afford ${target.name}.`, false);
+
+  const replaceIndex = state.squad.findIndex((p) => p.position === target.position || (target.position === "CAM" && p.position === "CM") || (target.position === "CDM" && p.position === "CM"));
+  const idx = replaceIndex >= 0 ? replaceIndex : Math.floor(Math.random() * state.squad.length);
+  const replaced = state.squad[idx];
+
   state.budget -= target.price;
-  state.squad.push({
-    name: target.name,
-    position: target.position,
-    rating: target.rating,
-    stamina: target.stamina,
-    morale: target.morale,
-    value: Math.round(target.price * 1.15),
-  });
-  state.market.splice(index, 1);
+  state.squad[idx] = { name: target.name, position: formationSlots[idx].slot, rating: target.rating, stamina: target.stamina };
+  state.market = state.market.filter((p) => p.name !== target.name);
   state.chemistry = Math.min(99, state.chemistry + 2);
-  setLog(`${target.name} joined Real Madrid for ${currency.format(target.price)}.`);
+
+  setLog(`${target.name} signed for ${currency.format(target.price)}. ${replaced.name} loses spot in the XI.`);
   render();
 }
 
-function setLog(message, good = true) {
-  matchLogEl.innerHTML = `<span class="${good ? "good" : "bad"}">${message}</span>`;
-}
-
-function playMatch() {
-  if (state.week > 10) {
-    setLog("Season complete! Restart page to begin a new rebuild.");
-    return;
-  }
-
-  const opponent = clubs[Math.floor(Math.random() * clubs.length)];
-  const tacticBoosts = {
-    balanced: 0,
-    "high-press": 2,
-    counter: 1,
-    possession: 1,
-  };
-
-  const chosenTactic = tacticEl.value;
-  const staminaFactor = Math.round(state.squad.reduce((sum, p) => sum + p.stamina, 0) / state.squad.length / 14);
-  const moraleFactor = Math.round(state.squad.reduce((sum, p) => sum + p.morale, 0) / state.squad.length / 20);
-  const power = averageRating() + tacticBoosts[chosenTactic] + moraleFactor + staminaFactor + Math.round(state.chemistry / 25);
-  const rivalPower = 80 + Math.floor(Math.random() * 12);
-
-  let result;
-  if (power >= rivalPower + 4) {
-    state.points += 3;
-    state.budget += 5000000;
-    result = `Win vs ${opponent}! Bonus prize money earned.`;
-  } else if (power >= rivalPower - 2) {
-    state.points += 1;
-    state.budget += 1500000;
-    result = `Draw vs ${opponent}. Solid but not enough.`;
-  } else {
-    state.chemistry = Math.max(50, state.chemistry - 2);
-    result = `Loss vs ${opponent}. Fans demand better performances.`;
-  }
-
-  state.squad.forEach((p) => {
-    p.stamina = Math.max(45, p.stamina - (chosenTactic === "high-press" ? 9 : 6));
-    p.morale = Math.max(55, p.morale + (result.startsWith("Win") ? 2 : result.startsWith("Loss") ? -2 : 0));
-  });
-
-  state.week += 1;
-  setLog(`${result} (${chosenTactic} tactic, team power ${power} vs ${rivalPower})`, !result.startsWith("Loss"));
-  render();
+function filteredMarket() {
+  const q = els.search.value.trim().toLowerCase();
+  if (!q) return state.market;
+  return state.market.filter((p) => p.name.toLowerCase().includes(q) || p.position.toLowerCase().includes(q));
 }
 
 function renderSquad() {
-  squadListEl.innerHTML = "";
-  state.squad.forEach((player, index) => {
+  els.squadList.innerHTML = "";
+  state.squad.forEach((p, index) => {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-      <div class="name">${player.name} (${player.position})</div>
-      <div class="meta">Rating ${player.rating} | Stamina ${player.stamina} | Morale ${player.morale}</div>
-      <div>
-        <button data-action="train" data-index="${index}">Train</button>
-        <button data-action="rest" data-index="${index}">Rest</button>
-        <button data-action="sell" data-index="${index}">Sell</button>
+      <div class="row"><strong>${formationSlots[index].slot} • ${p.name}</strong><strong>${p.rating}</strong></div>
+      <div class="meta">Stamina ${p.stamina} | Upgrade cost ${currency.format(2500000)}</div>
+      <div class="row">
+        <button data-action="upgrade" data-index="${index}">Quick Upgrade +2</button>
+        <button data-action="recover" data-index="${index}">Recover</button>
       </div>
     `;
-    squadListEl.appendChild(card);
+    els.squadList.appendChild(card);
   });
 }
 
 function renderMarket() {
-  marketListEl.innerHTML = "";
-  state.market.forEach((player, index) => {
+  els.marketList.innerHTML = "";
+  const players = filteredMarket();
+
+  players.forEach((p, index) => {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-      <div class="name">${player.name} (${player.position})</div>
-      <div class="meta">Overall ${player.rating} | Price ${currency.format(player.price)}</div>
-      <button data-action="buy" data-index="${index}">Buy</button>
+      <div class="row"><strong>${p.name} (${p.position})</strong><strong>${p.rating}</strong></div>
+      <div class="meta">Price ${currency.format(p.price)}</div>
+      <button data-action="buy" data-index="${index}">Sign Player</button>
     `;
-    marketListEl.appendChild(card);
+    els.marketList.appendChild(card);
   });
+}
+
+function playMatch() {
+  if (state.week > 20) return setLog("Season ended. Refresh to start again.");
+
+  const boost = { balanced: 0, "high-press": 2, counter: 1, possession: 2 }[els.tactic.value];
+  const staminaFactor = Math.round(state.squad.reduce((s, p) => s + p.stamina, 0) / 16 / state.squad.length * 11);
+  const power = avgRating() + boost + Math.round(state.chemistry / 20) + staminaFactor;
+  const opponent = clubs[Math.floor(Math.random() * clubs.length)];
+  const rival = 83 + Math.floor(Math.random() * 14);
+
+  let result = "";
+  if (power >= rival + 3) {
+    result = `Huge win against ${opponent}!`;
+    state.points += 3;
+    state.wins += 1;
+    state.budget += 6000000;
+  } else if (power >= rival - 2) {
+    result = `Draw against ${opponent}.`;
+    state.points += 1;
+    state.budget += 2200000;
+  } else {
+    result = `Loss against ${opponent}.`;
+    state.chemistry = Math.max(60, state.chemistry - 2);
+  }
+
+  state.squad.forEach((p) => {
+    p.stamina = Math.max(48, p.stamina - (els.tactic.value === "high-press" ? 8 : 5));
+  });
+  state.week += 1;
+
+  setLog(`${result} Team power ${power} vs ${rival}.`, !result.startsWith("Loss"));
+  render();
+}
+
+function setLog(msg, good = true) {
+  els.log.innerHTML = `<span class="${good ? "good" : "bad"}">${msg}</span>`;
 }
 
 function render() {
   renderOverview();
+  renderPitch();
   renderSquad();
   renderMarket();
 }
 
-document.body.addEventListener("click", (event) => {
-  if (!(event.target instanceof HTMLElement)) return;
-
-  const action = event.target.dataset.action;
-  const index = Number(event.target.dataset.index);
+document.body.addEventListener("click", (e) => {
+  if (!(e.target instanceof HTMLElement)) return;
+  const action = e.target.dataset.action;
+  const index = Number(e.target.dataset.index);
   if (!action || Number.isNaN(index)) return;
 
-  if (action === "train") trainPlayer(index);
-  if (action === "rest") restPlayer(index);
-  if (action === "sell") sellPlayer(index);
+  if (action === "upgrade") upgradePlayer(index);
+  if (action === "recover") recoverPlayer(index);
   if (action === "buy") buyPlayer(index);
 });
 
-playMatchBtn.addEventListener("click", playMatch);
+els.search.addEventListener("input", renderMarket);
+els.playBtn.addEventListener("click", playMatch);
+
 render();
-setLog("Welcome, manager. Start by tuning your squad and playing week 1.");
+setLog("Manager mode ready: build your elite XI and go win everything.");
