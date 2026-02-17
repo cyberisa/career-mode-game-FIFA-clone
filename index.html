@@ -3,58 +3,68 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Real Madrid Ultimate Rebuild</title>
+    <title>EA FC Style Career - Real Madrid Rebuild</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="hero">
-      <h1>⚽ Real Madrid Ultimate Rebuild</h1>
-      <p>Build a world-class XI, dominate matches, and hunt for superstar signings.</p>
+      <div>
+        <h1>Real Madrid Career Hub</h1>
+        <p>EA FC-inspired manager mode: 11-player pitch, full LaLiga season loop, transfers, training, and standings.</p>
+      </div>
+      <div class="season-chip" id="season-chip">Season 1</div>
     </header>
 
     <main class="layout">
       <section class="panel overview">
-        <h2>Club Dashboard</h2>
+        <h2>Club Overview</h2>
         <div class="stats-grid">
           <div><span>Budget</span><strong id="budget"></strong></div>
+          <div><span>Club Rating</span><strong id="club-rating"></strong></div>
           <div><span>Chemistry</span><strong id="chemistry"></strong></div>
-          <div><span>XI Rating</span><strong id="squad-rating"></strong></div>
-          <div><span>League Points</span><strong id="points"></strong></div>
-          <div><span>Week</span><strong id="week"></strong></div>
-          <div><span>Wins</span><strong id="wins"></strong></div>
+          <div><span>Position</span><strong id="table-position"></strong></div>
+          <div><span>Matchday</span><strong id="matchday"></strong></div>
+          <div><span>Next Opponent</span><strong id="next-opponent"></strong></div>
         </div>
       </section>
 
       <section class="panel pitch-panel">
-        <h2>Starting XI (4-3-3 View)</h2>
+        <h2>Starting XI (4-3-3)</h2>
         <div id="pitch" class="pitch"></div>
       </section>
 
-      <section class="panel controls">
-        <h2>Player Development</h2>
-        <p class="hint">Upgrade players easily. Max overall is 99.</p>
-        <div id="squad-list" class="card-list"></div>
+      <section class="panel actions-panel">
+        <h2>Squad Actions</h2>
+        <p class="hint">Upgrade is easy (+1) and capped at 99. Rotate or recover before big games.</p>
+        <div id="squad-list" class="scroll-list"></div>
       </section>
 
-      <section class="panel market">
-        <div class="market-header">
-          <h2>Global Transfer Market</h2>
-          <input id="market-search" type="text" placeholder="Search player or position..." />
+      <section class="panel market-panel">
+        <div class="panel-head">
+          <h2>Transfer Market</h2>
+          <input id="market-search" type="text" placeholder="Search players or position" />
         </div>
-        <div id="market-list" class="card-list"></div>
+        <div id="market-list" class="scroll-list"></div>
       </section>
 
       <section class="panel match-panel">
-        <h2>Play Match</h2>
-        <label for="tactic">Tactic</label>
-        <select id="tactic">
-          <option value="balanced">Balanced</option>
-          <option value="high-press">High Press</option>
-          <option value="counter">Counter Attack</option>
-          <option value="possession">Possession</option>
-        </select>
-        <button id="play-match">Play Next Match</button>
+        <h2>Match Center</h2>
+        <div class="control-grid">
+          <label for="tactic">Tactic</label>
+          <select id="tactic">
+            <option value="balanced">Balanced</option>
+            <option value="high-press">High Press</option>
+            <option value="counter">Counter Attack</option>
+            <option value="possession">Possession</option>
+          </select>
+          <button id="play-match">Play Matchday</button>
+        </div>
         <div id="match-log" class="log"></div>
+      </section>
+
+      <section class="panel standings-panel">
+        <h2>LaLiga Standings</h2>
+        <div id="standings" class="table-wrap"></div>
       </section>
     </main>
 

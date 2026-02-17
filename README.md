@@ -1,13 +1,18 @@
-# Real Madrid Ultimate Rebuild (Browser Prototype)
+# Real Madrid Career Hub (EA FC Style Prototype)
 
-A FIFA-style management prototype where you control Real Madrid's **starting XI**, sign stars from a large market, and simulate matches.
+A playable browser career mode inspired by EA FC/FIFA manager experience.
 
-## Features
-- Visual 4-3-3 pitch showing all 11 starters.
-- Easy player upgrades (+2 overall) with a hard cap at **99**.
-- Large transfer market with many high-profile players.
-- Tactics + weekly match simulation loop.
-- Budget, chemistry, points, and wins tracking.
+## What's included
+- FIFA-like **Starting XI pitch** with 11 players shown in a 4-3-3 shape.
+- Player pictures on pitch cards and transfer cards.
+- Big transfer market with many stars and filters.
+- Easy player progression with upgrade cap at **99 OVR**.
+- Full **LaLiga table with all 20 teams** and matchday simulation.
+- Endless multi-season loop (no refresh required after one season).
 
-## Run
-Open `index.html` directly in your browser, or use a local server.
+## How to run
+Open `index.html` in a browser or run a local server:
+
+```bash
+python3 -m http.server 4173
+```
