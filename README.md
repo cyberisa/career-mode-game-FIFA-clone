@@ -1,18 +1,17 @@
 # Real Madrid Career Hub (EA FC Style Prototype)
 
-A playable browser career mode inspired by EA FC/FIFA manager experience.
+A playable browser career mode inspired by EA FC/FIFA manager flow.
 
-## What's included
-- FIFA-like **Starting XI pitch** with 11 players shown in a 4-3-3 shape.
-- Player pictures on pitch cards and transfer cards.
-- Big transfer market with many stars and filters.
-- Easy player progression with upgrade cap at **99 OVR**.
-- Full **LaLiga table with all 20 teams** and matchday simulation.
-- Endless multi-season loop (no refresh required after one season).
+## Features
+- 11-player 4-3-3 pitch view with player pictures.
+- Dynamic match simulation with generated score events.
+- Match **score sheet** (minute, scorer, assister).
+- Season leaderboards: top scorers, top assisters, clean sheets.
+- Full 20-team LaLiga table and endless season loop.
+- Transfer market, search/filter, quick upgrades (max 99), and recovery actions.
 
-## How to run
-Open `index.html` in a browser or run a local server:
-
+## Run
 ```bash
 python3 -m http.server 4173
 ```
+Then open `http://localhost:4173`.

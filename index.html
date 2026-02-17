@@ -10,7 +10,7 @@
     <header class="hero">
       <div>
         <h1>Real Madrid Career Hub</h1>
-        <p>EA FC-inspired manager mode: 11-player pitch, full LaLiga season loop, transfers, training, and standings.</p>
+        <p>Play full seasons with a dynamic match engine, score sheets, and player leaderboards.</p>
       </div>
       <div class="season-chip" id="season-chip">Season 1</div>
     </header>
@@ -35,7 +35,7 @@
 
       <section class="panel actions-panel">
         <h2>Squad Actions</h2>
-        <p class="hint">Upgrade is easy (+1) and capped at 99. Rotate or recover before big games.</p>
+        <p class="hint">Upgrade players (+1, max 99), recover fitness, and prepare for the next fixture.</p>
         <div id="squad-list" class="scroll-list"></div>
       </section>
 
@@ -60,6 +60,16 @@
           <button id="play-match">Play Matchday</button>
         </div>
         <div id="match-log" class="log"></div>
+      </section>
+
+      <section class="panel report-panel">
+        <h2>Score Sheet</h2>
+        <div id="score-sheet" class="score-sheet"></div>
+      </section>
+
+      <section class="panel leaders-panel">
+        <h2>Season Leaders</h2>
+        <div id="leaders" class="leaders-grid"></div>
       </section>
 
       <section class="panel standings-panel">
