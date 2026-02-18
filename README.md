@@ -1,18 +1,28 @@
-# ADWBALL 2026 — Real Madrid Career Hub
+# ADWBALL 2026 — Terminal Career Mode (Python)
 
-A playable EA FC-style browser career mode.
+This project has been migrated from a web/JavaScript prototype to a **non-web Python application**.
 
-## New gameplay upgrades
-- Automatic stamina recovery between matches (2–4 day rest gap simulated).
-- Real Madrid bench management: swap bench players directly into the starting XI.
-- Harder player growth: upgrade cost scales with rating and success chance drops at high OVR.
-- Match simulation score sheet with minute-by-minute RM goal events.
-- Full LaLiga Golden Boot race across all teams (not only Real Madrid).
-- Defenders and all positions can score based on weighted probabilities.
-- AI-style generated face avatars and generated club badge logos (no real-image rights dependency).
+## Platform
+- **Language:** Python 3
+- **Interface:** Terminal / CLI (no browser)
+
+## Features
+- Full Real Madrid career-mode loop with:
+  - Starting XI + Bench squad management.
+  - Bench-to-XI player swaps.
+  - Transfer market signings.
+  - Harder player growth (rising cost + probabilistic training success).
+  - Automatic stamina recovery between fixtures (2–4 day rest simulation).
+  - Matchday simulation with score events.
+  - Full LaLiga table (20 teams).
+  - Golden Boot race including opposition scorers.
+  - Position-weighted goals so defenders can score too.
 
 ## Run
 ```bash
-python3 -m http.server 4173
+python3 main.py
 ```
-Open `http://localhost:4173`.
+
+## Notes
+- This is intentionally a desktop/terminal gameplay loop (not a web app).
+- Legacy `index.html`, `styles.css`, and `script.js` files were removed.
