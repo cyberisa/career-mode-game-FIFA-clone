@@ -1,28 +1,40 @@
-# ADWBALL 2026 — Terminal Career Mode (Python)
+# ADWBALL 2026 — Desktop Career Mode (Pygame)
 
-This project has been migrated from a web/JavaScript prototype to a **non-web Python application**.
+This project is now a **desktop game** (not web, not CLI-only) built with Python + Pygame.
 
-## Platform
-- **Language:** Python 3
-- **Interface:** Terminal / CLI (no browser)
+## What you get
+- Multi-screen UI: Hub, Squad, Market, Standings, and Live Match.
+- Real gameplay during matches:
+  - Move your controlled player (WASD/Arrow keys).
+  - Shoot the ball (Space).
+  - Score in real time against AI defender/keeper behavior.
+- Career systems:
+  - XI + Bench swapping.
+  - Harder training progression (cost scales + success chance drops near 99).
+  - Transfers from market.
+  - Full 20-team LaLiga table simulation.
+  - Golden Boot race with all teams.
 
-## Features
-- Full Real Madrid career-mode loop with:
-  - Starting XI + Bench squad management.
-  - Bench-to-XI player swaps.
-  - Transfer market signings.
-  - Harder player growth (rising cost + probabilistic training success).
-  - Automatic stamina recovery between fixtures (2–4 day rest simulation).
-  - Matchday simulation with score events.
-  - Full LaLiga table (20 teams).
-  - Golden Boot race including opposition scorers.
-  - Position-weighted goals so defenders can score too.
+## Install
+```bash
+python3 -m pip install pygame
+```
 
 ## Run
 ```bash
 python3 main.py
 ```
 
-## Notes
-- This is intentionally a desktop/terminal gameplay loop (not a web app).
-- Legacy `index.html`, `styles.css`, and `script.js` files were removed.
+## Controls
+- **Top buttons**: switch screens with mouse.
+- **Squad screen**:
+  - Up/Down = select XI player
+  - Left/Right = select bench player
+  - `T` = targeted training
+  - `Space` = swap bench player into XI
+- **Market screen**:
+  - Up/Down = select player
+  - `Enter` = sign player
+- **Match screen**:
+  - WASD / Arrow keys = move
+  - `Space` = shoot (when near ball)
